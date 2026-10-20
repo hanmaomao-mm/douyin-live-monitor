@@ -1,0 +1,43 @@
+# ============================================================
+#  抖音直播间监测录制器 —— 配置示例
+#  用法：复制为 config.yaml（或直接启动程序，会自动生成）
+# ------------------------------------------------------------
+#  · 删掉某个键 = 使用默认值，例如删掉 output_dir 就会用
+#    「用户目录\Videos\DouyinRecord」
+#  · record_mode 为 copy 时直录不转码，fps / 码率不生效
+# ============================================================
+
+# 录制文件保存目录（不填则默认 用户目录\Videos\DouyinRecord）
+# output_dir: D:/DouyinRecord
+
+# —— 检测 ——
+check_interval: 20        # 状态检测间隔（秒）
+detect_timeout: 10        # 单次 HTTP 请求超时（秒）
+failure_threshold: 5      # 连续失败多少次后标记为「异常」
+
+# —— 录制 ——
+record_mode: copy         # copy = 直录不转码（推荐）；transcode = 转码
+fps: 30                   # 仅 transcode 生效
+video_bitrate: 4000k      # 仅 transcode 生效
+audio_bitrate: 128k       # 仅 transcode 生效
+max_duration_min: 0       # 单文件最长时长（分钟），0 = 不限
+max_file_size_mb: 0       # 单文件最大体积（MB），0 = 不限
+keep_ts_on_failure: true  # 封装备份失败时保留中间 TS 文件
+
+# —— 运行环境 ——
+ffmpeg_path: ''           # 留空自动查找（内置 / 系统 PATH）
+user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+cookie: ''                # 可选：填自有账号 Cookie 可提高检测成功率
+
+# —— 行为 ——
+auto_start_on_launch: false
+
+# —— 监控列表 ——
+# stream_url 可填自有 / 已授权的直连流地址，填了就跳过自动解析
+rooms: []
+# rooms:
+#   - name: 达人A                      # 手动名称（留空则自动识别主播昵称）
+#     url: https://live.douyin.com/123456789
+#     enabled: true
+#     stream_url: ''
+#     note: ''
